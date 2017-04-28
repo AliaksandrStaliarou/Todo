@@ -1,7 +1,7 @@
 
 
 
-    function render() {
+    function renderList() {
         // renderTodos(todosFromLocalStorage);
         var lsTodos = TodoManager.loadTodos();
 
