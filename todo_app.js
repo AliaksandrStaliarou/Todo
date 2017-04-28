@@ -1,10 +1,8 @@
 
 
-    function initApp() {
+
+    function render() {
         // renderTodos(todosFromLocalStorage);
-
-        TodoManager.init();
-
         var lsTodos = TodoManager.loadTodos();
 
         var htmlTodos;
@@ -13,7 +11,12 @@
         }
 
         document.getElementById('todos').innerHTML = htmlTodos;
+    }
 
+
+    function initApp() {
+
+        TodoManager.init();
 
         //bind handlers to checkboxes
         var checkboxesList = document.body.querySelectorAll('label > input');
@@ -29,7 +32,6 @@
                 event.target.parentNode.style.textDecoration = 'none';
             }
         }
-
     }
 
 
