@@ -32,7 +32,7 @@ var TodoManager = {
     }
 };
 
-TodoManager.init();
+
 
 
 

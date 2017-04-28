@@ -2,6 +2,9 @@
 
     function initApp() {
         // renderTodos(todosFromLocalStorage);
+
+        TodoManager.init();
+
         var lsTodos = TodoManager.loadTodos();
 
         var htmlTodos;
