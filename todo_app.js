@@ -1,24 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-<div>
-    <input type="text" id='task' placeholder="Write todo text..." />
-    <input type="button" onclick="addTodo()" value="Add TODO" />
-</div>
-
-<ul id="todos">
-
-    <!-- <li><label><input type="checkbox">12</label></li>-->
-
-</ul>
-
-
-<script>
 
 
     function initApp() {
@@ -90,11 +69,6 @@
         // uses renderTodo for each todo in list and returns contcatenated string
     }
 
-</script>
-
-<script src="todoManager.js"></script>
 
 
 
-</body>
-</html>
