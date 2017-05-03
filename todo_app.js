@@ -1,5 +1,14 @@
 
+/*    (function() {
+        initApp();
+    })();*/
 
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        //your code to run since DOM is loaded and ready
+        initApp();
+    });
+    var todoText = document.getElementById('task').value;
 
     function renderList() {
         // renderTodos(todosFromLocalStorage);
@@ -15,7 +24,6 @@
 
 
     function initApp() {
-
         TodoManager.init();
 
         //bind handlers to checkboxes
@@ -33,6 +41,7 @@
             }
         }
     }
+
 
 
     function addTodo() {
@@ -65,14 +74,28 @@
          }*/
     }
 
-    function renderTodo(todoObject) {
+    function renderTodos(list) {
         // return string: <li><input type="checkbox" checked or
         // unckecked if todoObject.checked is true> todo text</li>
+        var lsTodos = [];
+        lsTodos = TodoManager.loadTodos();
+        lsTodos.map(function(todo) {
+            return renderTodo(todo);
+        })
     }
 
-    function renderTodos(todosList) {
+    function renderTodo(todo) {
         // uses renderTodo for each todo in list and returns contcatenated string
+
+        return '<li><label><input type="checkbox">' + todo.text + '</label></li>'
     }
+
+
+    renderTodo({
+        text: todoText
+    });
+
+
 
 
 
