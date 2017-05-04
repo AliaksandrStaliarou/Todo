@@ -59,7 +59,7 @@ localStorage.clear();
 
             var li = document.createElement('li');
             li.innerHTML = todoString;
-            var li =
+
             li.querySelector('input').addEventListener('change', checker);
 
             document.body.querySelector('ul').appendChild(li); //add it on the page
