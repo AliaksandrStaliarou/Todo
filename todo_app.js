@@ -1,4 +1,5 @@
 
+localStorage.clear();
 
     document.addEventListener("DOMContentLoaded", function(event) {
         //your code to run since DOM is loaded and ready
@@ -7,9 +8,9 @@
 
 
     function initApp() {
-        TodoManager.init(); //инициализирует туду манагер
-        var list = TodoManager.loadTodos(); //получает список тудушек из манагера
-        renderList(list); //рендерит список, добавляет его на страницу
+        TodoManager.init(); //TodoManager initialization
+        var list = TodoManager.loadTodos(); //get list of todos from TodoMmanager
+        renderList(list); //render list, add it on the page
 
         //bind handlers to checkboxes
         var checkboxesList = document.body.querySelectorAll('label > input');
@@ -17,28 +18,28 @@
         checkboxesList.forEach(function (item) {
             item.addEventListener("change", checker);
         });
+    }
 
-        function checker(event) {
-            if (event.target.checked) {
-                event.target.parentNode.style.textDecoration = 'line-through';
-            } else {
-                event.target.parentNode.style.textDecoration = 'none';
-            }
+    function checker(event) {
+        if (event.target.checked) {
+            event.target.parentNode.style.textDecoration = 'line-through';
+        } else {
+            event.target.parentNode.style.textDecoration = 'none';
         }
     }
 
     function renderList() {
         // renderTodos(todosFromLocalStorage);
-        //получил список тудушек
+        //get list of todos
         var lsTodos = TodoManager.loadTodos();
 
-        //отрендерил
+        //render it
         var htmlTodos;
         for (var i = 0; i < lsTodos.length; i++) {
             htmlTodos += '<li><label><input type="checkbox">' + lsTodos[i] + '</label></li>';
         }
 
-        //вставил
+        //insert
         document.getElementById('todos').innerHTML = htmlTodos;
     }
 
@@ -48,18 +49,21 @@
         var todoText = document.getElementById('task').value;
 
         // add todo to list and bind checkbox event
-        if (todoText) { //проверяет, не пустой ли текст у тудушки
+        if (todoText) { //check, if todos text isn't empty
 
-            TodoManager.addTodo({ //если не пустой, то добавляет тудушку в todoManager
+            TodoManager.addTodo({ //if isn't empty, add todo in todoManager
                 text: todoText
             });
 
-            var todoString = '<label>' + '<input type="checkbox">' + todoText + '</label>'; //рендерит тудушку
+            var todoString = renderTodo();
 
             var li = document.createElement('li');
             li.innerHTML = todoString;
+            var li =
+            li.querySelector('input').addEventListener('change', checker);
 
-            document.body.querySelector('ul').appendChild(li); //добавляет её на страницу
+            document.body.querySelector('ul').appendChild(li); //add it on the page
+
         }
     }
 
@@ -90,7 +94,7 @@
         return '<li><label><input type="checkbox">' + todo.text + '</label></li>'
     }
 
-    renderList();
+    //renderList();
 /*    renderTodo({
         text: todoText
     });*/
