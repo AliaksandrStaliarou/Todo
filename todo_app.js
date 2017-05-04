@@ -8,8 +8,8 @@
 
     function initApp() {
         TodoManager.init(); //инициализирует туду манагер
-        TodoManager.loadTodos(); //получает список тудушек из манагера
-        renderList(); //рендерит список, добавляет его на страницу
+        var list = TodoManager.loadTodos(); //получает список тудушек из манагера
+        renderList(list); //рендерит список, добавляет его на страницу
 
         //bind handlers to checkboxes
         var checkboxesList = document.body.querySelectorAll('label > input');
