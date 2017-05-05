@@ -1,5 +1,4 @@
 
-localStorage.clear();
 
     document.addEventListener("DOMContentLoaded", function(event) {
         //your code to run since DOM is loaded and ready
@@ -8,17 +7,10 @@ localStorage.clear();
 
 
     function initApp() {
-        TodoManager.init(); //TodoManager initialization
-        var list = TodoManager.loadTodos(); //get list of todos from TodoMmanager
-        renderList(list); //render list, add it on the page
-
-        //bind handlers to checkboxes
-        var checkboxesList = document.body.querySelectorAll('label > input');
-
-        checkboxesList.forEach(function (item) {
-            item.addEventListener("change", checker);
-        });
+        TodoManager.init();
+        renderList(); //render list, add it on the page
     }
+
 
     function checker(event) {
         if (event.target.checked) {
@@ -30,17 +22,20 @@ localStorage.clear();
 
     function renderList() {
         // renderTodos(todosFromLocalStorage);
-        //get list of todos
-        var lsTodos = TodoManager.loadTodos();
+        var todoList = TodoManager.loadTodos();
 
-        //render it
-        var htmlTodos;
-        for (var i = 0; i < lsTodos.length; i++) {
-            htmlTodos += '<li><label><input type="checkbox">' + lsTodos[i] + '</label></li>';
-        }
+        var renderedTodoList = todoList.map(function(todo) {
+            return renderTodo(todo);
+        });
 
-        //insert
-        document.getElementById('todos').innerHTML = htmlTodos;
+        document.getElementById('todos').innerHTML = renderedTodoList;
+
+        //bind handlers to checkboxes
+        var checkboxesList = document.body.querySelectorAll('label > input');
+
+        checkboxesList.forEach(function (item) {
+            item.addEventListener("change", checker);
+        });
     }
 
 
@@ -62,11 +57,9 @@ localStorage.clear();
 
             li.querySelector('input').addEventListener('change', checker);
 
-            document.body.querySelector('ul').appendChild(li); //add it on the page
-
+            document.body.querySelector('ul').appendChild(li);
         }
     }
-
 
     function toggleTodo(event) {
         // here you change state of todo and save changes to LS
@@ -75,29 +68,16 @@ localStorage.clear();
          lsTodosArr.push(lsTodos);
          for (var i = 0; i < lsTodosArr.length; i++) {
          var index = lsTodosArr.indexOf(lsTodosArr[i].checked)
-
          }*/
     }
 
-    function renderTodos(list) {
-        // return string: <li><input type="checkbox" checked or
-        // unckecked if todoObject.checked is true> todo text</li>
-        var lsTodos = [];
-        lsTodos = TodoManager.loadTodos();
-        lsTodos.map(function(todo) {
-            return renderTodo(todo);
-        })
-    }
 
     function renderTodo(todo) {
         // uses renderTodo for each todo in list and returns contcatenated string
         return '<li><label><input type="checkbox">' + todo.text + '</label></li>'
     }
 
-    //renderList();
-/*    renderTodo({
-        text: todoText
-    });*/
+
 
 
 
