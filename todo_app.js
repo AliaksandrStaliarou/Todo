@@ -50,7 +50,7 @@
                 text: todoText
             });
 
-            var todoString = renderTodo();
+            var todoString = renderTodo(todoText);
 
             var li = document.createElement('li');
             li.innerHTML = todoString;
@@ -77,6 +77,7 @@
         return '<li><label><input type="checkbox">' + todo.text + '</label></li>'
     }
 
+    initApp();
 
 
 
