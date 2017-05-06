@@ -8,7 +8,7 @@
 
     function initApp() {
         TodoManager.init();
-        renderList(); //render list, add it on the page
+        renderList();
     }
 
 
@@ -20,6 +20,7 @@
         }
     }
 
+
     function renderList() {
         // renderTodos(todosFromLocalStorage);
         var todoList = TodoManager.loadTodos();
@@ -28,7 +29,7 @@
             return renderTodo(todo);
         });
 
-        document.getElementById('todos').innerHTML = renderedTodoList;
+        document.getElementById('todos').innerHTML = renderedTodoList.join(' ');
 
         //bind handlers to checkboxes
         var checkboxesList = document.body.querySelectorAll('label > input');
@@ -50,7 +51,7 @@
                 text: todoText
             });
 
-            var todoString = renderTodo(todoText);
+            var todoString = renderTodo({text:todoText});
 
             var li = document.createElement('li');
             li.innerHTML = todoString;
@@ -61,14 +62,17 @@
         }
     }
 
+
     function toggleTodo(event) {
         // here you change state of todo and save changes to LS
-        /*        var lsTodosArr = [];
-         var lsTodos = TodoManager.loadTodos();
-         lsTodosArr.push(lsTodos);
-         for (var i = 0; i < lsTodosArr.length; i++) {
-         var index = lsTodosArr.indexOf(lsTodosArr[i].checked)
-         }*/
+        var lsTodosArr = [];
+        var lsTodos = TodoManager.loadTodos();
+        lsTodosArr.push(lsTodos);
+
+        for (var i = 0; i < lsTodosArr.length; i++) {
+            var index = index + lsTodosArr.indexOf(lsTodosArr[i].checked)
+        }
+        //return
     }
 
 
@@ -77,7 +81,9 @@
         return '<li><label><input type="checkbox">' + todo.text + '</label></li>'
     }
 
-    initApp();
+    toggleTodo();
+
+
 
 
 
