@@ -21,9 +21,9 @@
         var index = event.target.getAttribute('data-index');
         if (event.target.checked) {
             event.target.setAttribute('class', 'completed');
-            //TodoManager.toggleTodo(index);
+            TodoManager.toggleTodo(index);
         } else {
-            //TodoManager.toggleTodo(index);
+            TodoManager.toggleTodo(index);
         }
 
 /*        if (event.target.checked) {
