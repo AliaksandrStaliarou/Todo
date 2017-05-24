@@ -1,4 +1,6 @@
+//localStorage.clear();
 
+    var todosListEl;
 
     document.addEventListener("DOMContentLoaded", function(event) {
         //your code to run since DOM is loaded and ready
@@ -7,8 +9,11 @@
 
 
     function initApp() {
+        todosListEl = document.getElementById('todos'); // ссылка на дом элемент списка тудушек
         TodoManager.init();
         renderList();
+        //removeTodo();
+        toggleTodo();
     }
 
 
@@ -20,23 +25,32 @@
         }
     }
 
+    function removeTodo(event) {
+        var index = event.target.getAttribute('data-index');
+        TodoManager.removeTodo(index);
+    }
+
 
     function renderList() {
         // renderTodos(todosFromLocalStorage);
         var todoList = TodoManager.loadTodos();
-
-        var renderedTodoList = todoList.map(function(todo) {
-            return renderTodo(todo);
+        var renderedTodoList = todoList.map(function(todo, index) {
+            return renderTodo(todo, index);
         });
 
-        document.getElementById('todos').innerHTML = renderedTodoList.join(' ');
+        todosListEl.innerHTML = renderedTodoList.join('');
 
         //bind handlers to checkboxes
-        var checkboxesList = document.body.querySelectorAll('label > input');
-
+        var checkboxesList = todosListEl.querySelectorAll('input'); // список чекбоксов
         checkboxesList.forEach(function (item) {
             item.addEventListener("change", checker);
         });
+
+        //bind handlers to buttons
+        var buttonslist = todosListEl.getElementsByClassName('remover');
+        for (var i = 0; i < buttonslist.length; i++) {
+            buttonslist[i].addEventListener("click", removeTodo);
+        }
     }
 
 
@@ -58,30 +72,26 @@
 
             li.querySelector('input').addEventListener('change', checker);
 
-            document.body.querySelector('ul').appendChild(li);
+            todosListEl.appendChild(li);
         }
     }
 
 
     function toggleTodo(event) {
         // here you change state of todo and save changes to LS
-        var lsTodosArr = [];
-        var lsTodos = TodoManager.loadTodos();
-        lsTodosArr.push(lsTodos);
-
-        for (var i = 0; i < lsTodosArr.length; i++) {
-            var index = index + lsTodosArr.indexOf(lsTodosArr[i].checked)
-        }
-        //return
+        var index = event.target.getAttribute('data-index');
+        TodoManager.toggleTodo(index);
     }
 
 
-    function renderTodo(todo) {
+    function renderTodo(todo, index) {
         // uses renderTodo for each todo in list and returns contcatenated string
-        return '<li><label><input type="checkbox">' + todo.text + '</label></li>'
+        return '<li><label><input data-index="'+ index + '" type="checkbox">' + todo.text + ' <button class="remover">x</button></label></li>'
+        //return '<li><label><input type="checkbox" data-index='+index +'>' + todo.text + '</label></li>';
+        //return '<li><label><input type="checkbox">' + todo.text + '</label></li>'
     }
 
-    toggleTodo();
+
 
 
 
