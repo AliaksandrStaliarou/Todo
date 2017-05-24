@@ -1,0 +1,6 @@
+Li {
+    text-decoration: none;
+}
+ Li.completed {
+     text-decoration: line-through;
+ }

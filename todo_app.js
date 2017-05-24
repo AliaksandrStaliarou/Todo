@@ -1,4 +1,4 @@
-//localStorage.clear();
+localStorage.clear();
 
     var todosListEl;
 
@@ -13,16 +13,26 @@
         TodoManager.init();
         renderList();
         //removeTodo();
-        toggleTodo();
+        //toggleTodo(event);
     }
 
 
     function checker(event) {
+        var index = event.target.getAttribute('data-index');
         if (event.target.checked) {
+            event.target.setAttribute('class', 'completed');
+            TodoManager.toggleTodo(index);
+        } else {
+            TodoManager.toggleTodo(index);
+        }
+
+/*        if (event.target.checked) {
             event.target.parentNode.style.textDecoration = 'line-through';
+            TodoManager.toggleTodo(index);
         } else {
             event.target.parentNode.style.textDecoration = 'none';
-        }
+            TodoManager.toggleTodo(index);
+        }*/
     }
 
     function removeTodo(event) {
@@ -90,6 +100,7 @@
         //return '<li><label><input type="checkbox" data-index='+index +'>' + todo.text + '</label></li>';
         //return '<li><label><input type="checkbox">' + todo.text + '</label></li>'
     }
+
 
 
 
