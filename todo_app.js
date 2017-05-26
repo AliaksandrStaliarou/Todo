@@ -12,28 +12,15 @@
         todosListEl = document.getElementById('todos'); // ссылка на дом элемент списка тудушек
         TodoManager.init();
         renderList();
-        //removeTodo();
-        //toggleTodo(event);
     }
 
 
     function checker(event) {
         var index = event.target.getAttribute('data-index');
-        if (event.target.checked) {
-            event.target.setAttribute('class', 'completed');
-            TodoManager.toggleTodo(index);
-        } else {
-            TodoManager.toggleTodo(index);
-        }
-
-/*        if (event.target.checked) {
-            event.target.parentNode.style.textDecoration = 'line-through';
-            TodoManager.toggleTodo(index);
-        } else {
-            event.target.parentNode.style.textDecoration = 'none';
-            TodoManager.toggleTodo(index);
-        }*/
+        event.target.parentNode.parentNode.classList.toggle('completed');
+        TodoManager.toggleTodo(index);
     }
+
 
     function removeTodo(event) {
         var index = event.target.getAttribute('data-index');
@@ -96,7 +83,7 @@
 
     function renderTodo(todo, index) {
         // uses renderTodo for each todo in list and returns contcatenated string
-        return '<li><label><input data-index="'+ index + '" type="checkbox">' + todo.text + ' <button class="remover">x</button></label></li>'
+        return '<li><label><input data-index="'+ index + '" type="checkbox" checked>' + todo.text + ' <button class="remover">x</button></label></li>'
         //return '<li><label><input type="checkbox" data-index='+index +'>' + todo.text + '</label></li>';
         //return '<li><label><input type="checkbox">' + todo.text + '</label></li>'
     }
