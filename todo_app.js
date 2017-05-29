@@ -83,7 +83,12 @@
 
     function renderTodo(todo, index) {
         // uses renderTodo for each todo in list and returns contcatenated string
-        return '<li><label><input data-index="'+ index + '" type="checkbox" checked>' + todo.text + ' <button class="remover">x</button></label></li>'
+        if (todo.checked === true) {
+            return '<li class="completed"><label><input data-index="'+ index + '" type="checkbox" ' + 'checked>' + todo.text + ' <button class="remover">x</button></label></li>';
+        } else {
+            return '<li><label><input data-index="'+ index + '" type="checkbox" ' + '>' + todo.text + ' <button class="remover">x</button></label></li>'
+        }
+
         //return '<li><label><input type="checkbox" data-index='+index +'>' + todo.text + '</label></li>';
         //return '<li><label><input type="checkbox">' + todo.text + '</label></li>'
     }
