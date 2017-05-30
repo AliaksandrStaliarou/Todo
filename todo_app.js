@@ -11,7 +11,7 @@
     function initApp() {
         todosListEl = document.getElementById('todos'); // ссылка на дом элемент списка тудушек
         TodoManager.init();
-        renderList();
+
     }
 
 
