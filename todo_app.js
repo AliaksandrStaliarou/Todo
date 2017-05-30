@@ -25,6 +25,7 @@
     function removeTodo(event) {
         var index = event.target.getAttribute('data-index');
         TodoManager.removeTodo(index);
+        renderList();
     }
 
 
@@ -57,7 +58,6 @@
 
         // add todo to list and bind checkbox event
         if (todoText) { //check, if todos text isn't empty
-
             TodoManager.addTodo({ //if isn't empty, add todo in todoManager
                 text: todoText
             });
@@ -67,30 +67,17 @@
             var li = document.createElement('li');
             li.innerHTML = todoString;
 
-            li.querySelector('input').addEventListener('change', checker);
-
             todosListEl.appendChild(li);
         }
     }
 
 
-    function toggleTodo(event) {
-        // here you change state of todo and save changes to LS
-        var index = event.target.getAttribute('data-index');
-        TodoManager.toggleTodo(index);
-    }
-
-
     function renderTodo(todo, index) {
         // uses renderTodo for each todo in list and returns contcatenated string
-        if (todo.checked === true) {
-            return '<li class="completed"><label><input data-index="'+ index + '" type="checkbox" ' + 'checked>' + todo.text + ' <button class="remover">x</button></label></li>';
-        } else {
-            return '<li><label><input data-index="'+ index + '" type="checkbox" ' + '>' + todo.text + ' <button class="remover">x</button></label></li>'
-        }
-
-        //return '<li><label><input type="checkbox" data-index='+index +'>' + todo.text + '</label></li>';
-        //return '<li><label><input type="checkbox">' + todo.text + '</label></li>'
+        return '<li' + (todo.checked ? ' class="completed"' : '')  +
+            '><label><input data-index="'+ index + '" type="checkbox" ' +
+            (todo.checked ? ' checked' : '') + '>' + todo.text +
+            ' <button class="remover">x</button></label></li>';
     }
 
 
