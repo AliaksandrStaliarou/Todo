@@ -1,4 +1,3 @@
-//localStorage.clear();
 
     var todosListEl;
 
@@ -40,24 +39,24 @@
 
         handlersToCheckboxes();
         handlersToButtons();
-
     }
 
-//bind handlers to checkboxes
-function handlersToCheckboxes() {
-    var checkboxesList = todosListEl.querySelectorAll('input'); // список чекбоксов
-    checkboxesList.forEach(function (item) {
-        item.addEventListener("change", checker);
-    });
+
+    //bind handlers to checkboxes
+    function handlersToCheckboxes() {
+        var checkboxesList = todosListEl.querySelectorAll('input'); // список чекбоксов
+        checkboxesList.forEach(function (item) {
+            item.addEventListener("change", checker);
+        });
 }
 
-//bind handlers to buttons
-function handlersToButtons() {
-    var buttonslist = todosListEl.getElementsByClassName('remover');
-    for (var i = 0; i < buttonslist.length; i++) {
-        buttonslist[i].addEventListener("click", removeTodo);
+    //bind handlers to buttons
+    function handlersToButtons() {
+        var buttonslist = todosListEl.getElementsByClassName('remover');
+        for (var i = 0; i < buttonslist.length; i++) {
+            buttonslist[i].addEventListener("click", removeTodo);
+        }
     }
-}
 
 
     function addTodo() {
