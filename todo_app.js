@@ -35,7 +35,7 @@
             return renderTodo(todo, index);
         });
 
-        todosListEl.innerHTML = renderedTodoList.join('');
+        todosListEl.innerHTML  = renderedTodoList.join('');
 
         handlersToCheckboxes();
         handlersToButtons();
@@ -73,7 +73,8 @@
             var todoString = renderTodo({text:todoText});
             var li = document.createElement('li');
             li.innerHTML = todoString;
-            todosListEl.appendChild(li);
+            var html = li.textContent || li.innerText;
+            todosListEl.appendChild(html);
             handlersToCheckboxes();
             handlersToButtons();
         }
