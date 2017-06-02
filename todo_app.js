@@ -38,18 +38,26 @@
 
         todosListEl.innerHTML = renderedTodoList.join('');
 
-        //bind handlers to checkboxes
-        var checkboxesList = todosListEl.querySelectorAll('input'); // список чекбоксов
-        checkboxesList.forEach(function (item) {
-            item.addEventListener("change", checker);
-        });
+        handlersToCheckboxes();
+        handlersToButtons();
 
-        //bind handlers to buttons
-        var buttonslist = todosListEl.getElementsByClassName('remover');
-        for (var i = 0; i < buttonslist.length; i++) {
-            buttonslist[i].addEventListener("click", removeTodo);
-        }
     }
+
+//bind handlers to checkboxes
+function handlersToCheckboxes() {
+    var checkboxesList = todosListEl.querySelectorAll('input'); // список чекбоксов
+    checkboxesList.forEach(function (item) {
+        item.addEventListener("change", checker);
+    });
+}
+
+//bind handlers to buttons
+function handlersToButtons() {
+    var buttonslist = todosListEl.getElementsByClassName('remover');
+    for (var i = 0; i < buttonslist.length; i++) {
+        buttonslist[i].addEventListener("click", removeTodo);
+    }
+}
 
 
     function addTodo() {
@@ -57,18 +65,20 @@
         var todoText = document.getElementById('task').value;
 
         // add todo to list and bind checkbox event
-        if (todoText) { //check, if todos text isn't empty
-            TodoManager.addTodo({ //if isn't empty, add todo in todoManager
+        if (todoText === '') {
+            alert('Please write something');
+        } else {
+            TodoManager.addTodo({
                 text: todoText
             });
-
             var todoString = renderTodo({text:todoText});
-
             var li = document.createElement('li');
             li.innerHTML = todoString;
-
             todosListEl.appendChild(li);
+            handlersToCheckboxes();
+            handlersToButtons();
         }
+        document.getElementById('task').value = '';
     }
 
 
@@ -77,7 +87,7 @@
         return '<li' + (todo.checked ? ' class="completed"' : '')  +
             '><label><input data-index="'+ index + '" type="checkbox" ' +
             (todo.checked ? ' checked' : '') + '>' + todo.text +
-            ' <button class="remover">x</button></label></li>';
+            '<button class="remover" data-index="'+ index + '">x</button></label></li>';
     }
 
 
