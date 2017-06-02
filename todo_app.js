@@ -48,7 +48,7 @@
         checkboxesList.forEach(function (item) {
             item.addEventListener("change", checker);
         });
-}
+    }
 
     //bind handlers to buttons
     function handlersToButtons() {
