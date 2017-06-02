@@ -1,35 +1,61 @@
 
+    var todosListEl;
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        //your code to run since DOM is loaded and ready
+        initApp();
+    });
+
 
     function initApp() {
-        // renderTodos(todosFromLocalStorage);
-
+        todosListEl = document.getElementById('todos'); // ссылка на дом элемент списка тудушек
         TodoManager.init();
-
-        var lsTodos = TodoManager.loadTodos();
-
-        var htmlTodos;
-        for (var i = 0; i < lsTodos.length; i++) {
-            htmlTodos += '<li><label><input type="checkbox">' + lsTodos[i] + '</label></li>';
-        }
-
-        document.getElementById('todos').innerHTML = htmlTodos;
+        renderList();
+    }
 
 
-        //bind handlers to checkboxes
-        var checkboxesList = document.body.querySelectorAll('label > input');
+    function checker(event) {
+        var index = event.target.getAttribute('data-index');
+        event.target.parentNode.parentNode.classList.toggle('completed');
+        TodoManager.toggleTodo(index);
+    }
 
+
+    function removeTodo(event) {
+        var index = event.target.getAttribute('data-index');
+        TodoManager.removeTodo(index);
+        renderList();
+    }
+
+
+    function renderList() {
+        // renderTodos(todosFromLocalStorage);
+        var todoList = TodoManager.loadTodos();
+        var renderedTodoList = todoList.map(function(todo, index) {
+            return renderTodo(todo, index);
+        });
+
+        todosListEl.innerHTML  = renderedTodoList.join('');
+
+        handlersToCheckboxes();
+        handlersToButtons();
+    }
+
+
+    //bind handlers to checkboxes
+    function handlersToCheckboxes() {
+        var checkboxesList = todosListEl.querySelectorAll('input'); // список чекбоксов
         checkboxesList.forEach(function (item) {
             item.addEventListener("change", checker);
         });
+    }
 
-        function checker(event) {
-            if (event.target.checked) {
-                event.target.parentNode.style.textDecoration = 'line-through';
-            } else {
-                event.target.parentNode.style.textDecoration = 'none';
-            }
+    //bind handlers to buttons
+    function handlersToButtons() {
+        var buttonslist = todosListEl.getElementsByClassName('remover');
+        for (var i = 0; i < buttonslist.length; i++) {
+            buttonslist[i].addEventListener("click", removeTodo);
         }
-
     }
 
 
@@ -37,40 +63,39 @@
         // save todo to LS
         var todoText = document.getElementById('task').value;
 
-        TodoManager.addTodo({
-            text: todoText
-        });
-
         // add todo to list and bind checkbox event
-        if (todoText) {
-            var todoString = '<label>' + '<input type="checkbox">' + todoText + '</label>';
+        if (todoText === '') {
+            alert('Please write something');
+        } else {
+            TodoManager.addTodo({
+                text: todoText
+            });
+            var todoString = renderTodo({text:todoText});
             var li = document.createElement('li');
             li.innerHTML = todoString;
-
-            document.body.querySelector('ul').appendChild(li);
+            todosListEl.appendChild(li);
+            handlersToCheckboxes();
+            handlersToButtons();
         }
+        document.getElementById('task').value = '';
     }
 
 
-    function toggleTodo(event) {
-        // here you change state of todo and save changes to LS
-        /*        var lsTodosArr = [];
-         var lsTodos = TodoManager.loadTodos();
-         lsTodosArr.push(lsTodos);
-         for (var i = 0; i < lsTodosArr.length; i++) {
-         var index = lsTodosArr.indexOf(lsTodosArr[i].checked)
-
-         }*/
-    }
-
-    function renderTodo(todoObject) {
-        // return string: <li><input type="checkbox" checked or
-        // unckecked if todoObject.checked is true> todo text</li>
-    }
-
-    function renderTodos(todosList) {
+    function renderTodo(todo, index) {
         // uses renderTodo for each todo in list and returns contcatenated string
+        return '<li' + (todo.checked ? ' class="completed"' : '')  +
+            '><label><input data-index="'+ index + '" type="checkbox" ' +
+            (todo.checked ? ' checked' : '') + '>' + todo.text +
+            '<button class="remover" data-index="'+ index + '">x</button></label></li>';
     }
+
+
+
+
+
+
+
+
 
 
 
