@@ -73,8 +73,7 @@
             var todoString = renderTodo({text:todoText});
             var li = document.createElement('li');
             li.innerHTML = todoString;
-            var html = li.textContent || li.innerText;
-            todosListEl.appendChild(html);
+            todosListEl.appendChild(li);
             handlersToCheckboxes();
             handlersToButtons();
         }
