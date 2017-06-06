@@ -1,7 +1,7 @@
 
 
 function TodoApp() {
-    //your code to run since DOM is loaded and ready
+    //your code to run since DOM is loaded and ready;
     document.addEventListener("DOMContentLoaded", TodoApp.prototype = function (event) {
         var todoApp = new TodoApp();
     });
