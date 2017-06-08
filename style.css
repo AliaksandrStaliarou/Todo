@@ -1,4 +1,8 @@
 
+div {
+    padding: 30px;
+}
+
  .completed {
      text-decoration: line-through;
  }
