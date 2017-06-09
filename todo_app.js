@@ -1,19 +1,16 @@
 
 
 
+/*
 function TodoApp() {
     //your code to run since DOM is loaded and ready;
     this.initApp();
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    var todoApp = new TodoApp();
-});
-
 
 TodoApp.prototype.initApp = function() {
     this._todosListEl = document.getElementById('todos'); // ссылка на дом элемент списка тудушек
-    var addButton = document.querySelector('div > input:last-child');
+    var addButton = document.getElementById('addButton');
     addButton.addEventListener('click', this.addTodo.bind(this));
     TodoManager.init();
     this.renderList();
@@ -37,11 +34,14 @@ TodoApp.prototype.removeTodo = function (event) {
 TodoApp.prototype.renderList = function() {
     // renderTodos(todosFromLocalStorage);
     var todoList = TodoManager.loadTodos();
-    this._renderedTodoList = todoList.map(function(todo, index) {
+
+    //var renderedTodosArr = todoList.map(this.renderTodo, this);
+
+    var renderedTodosArr = todoList.map(function(todo, index) {
         return this.renderTodo(todo, index);
     }, this);
 
-    this._todosListEl.innerHTML = this._renderedTodoList.join('');
+    this._todosListEl.innerHTML = renderedTodosArr.join('');
 
     this.handlersToCheckboxes();
     this.handlersToButtons();
@@ -94,6 +94,7 @@ TodoApp.prototype.renderTodo = function(todo, index) {
         (todo.checked ? ' checked' : '') + '>' + todo.text +
         '<button class="remover" data-index="'+ index + '">x</button></label></li>';
 };
+*/
 
 
 
@@ -102,7 +103,7 @@ TodoApp.prototype.renderTodo = function(todo, index) {
 
 
 
-/*    var todosListEl;
+    var todosListEl;
 
     document.addEventListener("DOMContentLoaded", function(event) {
         //your code to run since DOM is loaded and ready
@@ -112,7 +113,7 @@ TodoApp.prototype.renderTodo = function(todo, index) {
 
     function initApp() {
         todosListEl = document.getElementById('todos'); // ссылка на дом элемент списка тудушек
- var addButton = document.querySelector('div > input:last-child');
+ var addButton = document.getElementById('addButton');
  addButton.addEventListener('click', addTodo);
         TodoManager.init();
         renderList();
@@ -175,7 +176,9 @@ TodoApp.prototype.renderTodo = function(todo, index) {
             TodoManager.addTodo({
                 text: todoText
             });
-            var todoString = renderTodo({text:todoText});
+            var todoList = TodoManager.loadTodos();
+            var newTodoIndex = todoList.length -1;
+            var todoString = renderTodo({text:todoText}, newTodoIndex);
             var li = document.createElement('li');
             li.innerHTML = todoString;
             todosListEl.appendChild(li);
@@ -192,7 +195,7 @@ TodoApp.prototype.renderTodo = function(todo, index) {
             '><label><input data-index="'+ index + '" type="checkbox" ' +
             (todo.checked ? ' checked' : '') + '>' + todo.text +
             '<button class="remover" data-index="'+ index + '">x</button></label></li>';
-    }*/
+    }
 
 
 
