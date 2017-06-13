@@ -1,7 +1,7 @@
 
 
 
-/*
+
 function TodoApp() {
     //your code to run since DOM is loaded and ready;
     this.initApp();
@@ -35,11 +35,11 @@ TodoApp.prototype.renderList = function() {
     // renderTodos(todosFromLocalStorage);
     var todoList = TodoManager.loadTodos();
 
-    //var renderedTodosArr = todoList.map(this.renderTodo, this);
+    var renderedTodosArr = todoList.map(this.renderTodo, this);
 
-    var renderedTodosArr = todoList.map(function(todo, index) {
+/*    var renderedTodosArr = todoList.map(function(todo, index) {
         return this.renderTodo(todo, index);
-    }, this);
+    }, this);*/
 
     this._todosListEl.innerHTML = renderedTodosArr.join('');
 
@@ -58,9 +58,9 @@ TodoApp.prototype.handlersToCheckboxes = function() {
 
 //bind handlers to buttons
 TodoApp.prototype.handlersToButtons = function() {
-    var buttonslist = this._todosListEl.getElementsByClassName('remover');
-    for (var i = 0; i < buttonslist.length; i++) {
-        buttonslist[i].addEventListener("click", this.removeTodo.bind(this));
+    var buttonsList = this._todosListEl.getElementsByClassName('remover');
+    for (var i = 0; i < buttonsList.length; i++) {
+        buttonsList[i].addEventListener("click", this.removeTodo.bind(this));
     }
 };
 
@@ -76,9 +76,11 @@ TodoApp.prototype.addTodo = function() {
         TodoManager.addTodo({
             text: todoText
         });
-        this._todoString = this.renderTodo({text:todoText});
+        var todoList = TodoManager.loadTodos();
+        var newTodoIndex = todoList.length -1;
+        var todoString = this.renderTodo({text:todoText}, newTodoIndex);
         this._li = document.createElement('li');
-        this._li.innerHTML = this._todoString;
+        this._li.innerHTML = todoString;
         this._todosListEl.appendChild(this._li);
         this.handlersToCheckboxes();
         this.handlersToButtons();
@@ -94,7 +96,6 @@ TodoApp.prototype.renderTodo = function(todo, index) {
         (todo.checked ? ' checked' : '') + '>' + todo.text +
         '<button class="remover" data-index="'+ index + '">x</button></label></li>';
 };
-*/
 
 
 
@@ -103,6 +104,10 @@ TodoApp.prototype.renderTodo = function(todo, index) {
 
 
 
+
+
+
+/*
     var todosListEl;
 
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -196,6 +201,10 @@ TodoApp.prototype.renderTodo = function(todo, index) {
             (todo.checked ? ' checked' : '') + '>' + todo.text +
             '<button class="remover" data-index="'+ index + '">x</button></label></li>';
     }
+*/
+
+
+
 
 
 
