@@ -1,5 +1,5 @@
 
-
+localStorage.clear();
 
 
 function TodoApp() {
@@ -28,6 +28,7 @@ TodoApp.prototype.removeTodo = function (event) {
     var index = event.target.getAttribute('data-index');
     TodoManager.removeTodo(index);
     this.renderList();
+
 };
 
 
@@ -35,11 +36,11 @@ TodoApp.prototype.renderList = function() {
     // renderTodos(todosFromLocalStorage);
     var todoList = TodoManager.loadTodos();
 
-    var renderedTodosArr = todoList.map(this.renderTodo, this);
+    //var renderedTodosArr = todoList.map(this.renderTodo, this);
 
-/*    var renderedTodosArr = todoList.map(function(todo, index) {
+    var renderedTodosArr = todoList.map(function(todo, index) {
         return this.renderTodo(todo, index);
-    }, this);*/
+    }, this);
 
     this._todosListEl.innerHTML = renderedTodosArr.join('');
 
@@ -57,11 +58,16 @@ TodoApp.prototype.handlersToCheckboxes = function() {
 };
 
 //bind handlers to buttons
-TodoApp.prototype.handlersToButtons = function() {
-    var buttonsList = this._todosListEl.getElementsByClassName('remover');
+TodoApp.prototype.handlersToButtons = function(event) {
+    this._todosListEl.onclick = function(event) {
+        if(!event.target.classList.contains('remover')) return;
+        event.target.parentNode.parentNode.hidden = !event.target.parentNode.parentNode.hidden;
+    };
+/*    var buttonsList = this._todosListEl.getElementsByClassName('remover');
     for (var i = 0; i < buttonsList.length; i++) {
         buttonsList[i].addEventListener("click", this.removeTodo.bind(this));
-    }
+    }*/
+
 };
 
 
@@ -79,9 +85,18 @@ TodoApp.prototype.addTodo = function() {
         var todoList = TodoManager.loadTodos();
         var newTodoIndex = todoList.length -1;
         var todoString = this.renderTodo({text:todoText}, newTodoIndex);
+
+       /* var todosArea = document.querySelector('ul');
+        var text = document.createTextNode(todoString);
+        text.innerHTML = todoString;
+        todosArea.appendChild(text);*/
+
         this._li = document.createElement('li');
         this._li.innerHTML = todoString;
         this._todosListEl.appendChild(this._li);
+
+        this.renderList();
+
         this.handlersToCheckboxes();
         this.handlersToButtons();
     }
