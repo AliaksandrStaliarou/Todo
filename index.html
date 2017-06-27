@@ -11,14 +11,21 @@
 </head>
 <body>
 
-<div>
+<div class="panel">
     <input type="text" id='task' placeholder="Write todo text..." />
-    <input type="button" onclick="addTodo()" value="Add TODO" />
+    <input type="button" id='addButton' value="Add TODO" />
 </div>
 
 <ul id="todos">
 
 </ul>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var todoApp = new TodoApp();
+    });
+</script>
+
 
 </body>
 </html>
