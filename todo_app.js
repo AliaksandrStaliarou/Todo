@@ -1,6 +1,4 @@
-
 localStorage.clear();
-
 
 function TodoApp() {
     //your code to run since DOM is loaded and ready;
@@ -17,7 +15,7 @@ TodoApp.prototype.initApp = function() {
 };
 
 
-TodoApp.prototype.checker = function (event) {
+TodoApp.prototype.checker = function () {
     var index = event.target.getAttribute('data-index');
     event.target.parentNode.parentNode.classList.toggle('completed');
     TodoManager.toggleTodo(index);
@@ -25,10 +23,13 @@ TodoApp.prototype.checker = function (event) {
 
 
 TodoApp.prototype.removeTodo = function (event) {
-    var index = event.target.getAttribute('data-index');
-    TodoManager.removeTodo(index);
-    this.renderList();
+    if (event.target.classList.contains('remover')) {
+        var index = event.target.getAttribute('data-index');
+        TodoManager.removeTodo(index);
+        this.renderList();
+    } else {
 
+    } return;
 };
 
 
@@ -58,11 +59,8 @@ TodoApp.prototype.handlersToCheckboxes = function() {
 };
 
 //bind handlers to buttons
-TodoApp.prototype.handlersToButtons = function(event) {
-    this._todosListEl.onclick = function(event) {
-        if(!event.target.classList.contains('remover')) return;
-        event.target.parentNode.parentNode.hidden = !event.target.parentNode.parentNode.hidden;
-    };
+TodoApp.prototype.handlersToButtons = function() {
+    this._todosListEl.addEventListener('click', this.removeTodo.bind(this));
 /*    var buttonsList = this._todosListEl.getElementsByClassName('remover');
     for (var i = 0; i < buttonsList.length; i++) {
         buttonsList[i].addEventListener("click", this.removeTodo.bind(this));
@@ -95,7 +93,7 @@ TodoApp.prototype.addTodo = function() {
         this._li.innerHTML = todoString;
         this._todosListEl.appendChild(this._li);
 
-        this.renderList();
+        //this.renderList();
 
         this.handlersToCheckboxes();
         this.handlersToButtons();
