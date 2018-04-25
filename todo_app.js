@@ -6,7 +6,7 @@ function TodoApp() {
 }
 
 
-TodoApp.prototype.initApp = function() {
+/*TodoApp.prototype.initApp = function() {
     this._todosListEl = document.getElementById('todos'); // ссылка на дом элемент списка тудушек
     var addButton = document.getElementById('addButton');
     addButton.addEventListener('click', this.addTodo.bind(this));
@@ -23,13 +23,11 @@ TodoApp.prototype.checker = function () {
 
 
 TodoApp.prototype.removeTodo = function (event) {
-    if (event.target.classList.contains('remover')) {
+    if (!event.target.classList.contains('remover')) return;
         var index = event.target.getAttribute('data-index');
         TodoManager.removeTodo(index);
         this.renderList();
-    } else {
 
-    } return;
 };
 
 
@@ -61,10 +59,10 @@ TodoApp.prototype.handlersToCheckboxes = function() {
 //bind handlers to buttons
 TodoApp.prototype.handlersToButtons = function() {
     this._todosListEl.addEventListener('click', this.removeTodo.bind(this));
-/*    var buttonsList = this._todosListEl.getElementsByClassName('remover');
+/!*    var buttonsList = this._todosListEl.getElementsByClassName('remover');
     for (var i = 0; i < buttonsList.length; i++) {
         buttonsList[i].addEventListener("click", this.removeTodo.bind(this));
-    }*/
+    }*!/
 
 };
 
@@ -84,10 +82,10 @@ TodoApp.prototype.addTodo = function() {
         var newTodoIndex = todoList.length -1;
         var todoString = this.renderTodo({text:todoText}, newTodoIndex);
 
-       /* var todosArea = document.querySelector('ul');
+       /!* var todosArea = document.querySelector('ul');
         var text = document.createTextNode(todoString);
         text.innerHTML = todoString;
-        todosArea.appendChild(text);*/
+        todosArea.appendChild(text);*!/
 
         this._li = document.createElement('li');
         this._li.innerHTML = todoString;
@@ -108,19 +106,13 @@ TodoApp.prototype.renderTodo = function(todo, index) {
         '><label><input data-index="'+ index + '" type="checkbox" ' +
         (todo.checked ? ' checked' : '') + '>' + todo.text +
         '<button class="remover" data-index="'+ index + '">x</button></label></li>';
-};
+};*/
 
 
 
 
 
 
-
-
-
-
-
-/*
     var todosListEl;
 
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -131,8 +123,8 @@ TodoApp.prototype.renderTodo = function(todo, index) {
 
     function initApp() {
         todosListEl = document.getElementById('todos'); // ссылка на дом элемент списка тудушек
- var addButton = document.getElementById('addButton');
- addButton.addEventListener('click', addTodo);
+        var addButton = document.getElementById('addButton');
+        addButton.addEventListener('click', addTodo);
         TodoManager.init();
         renderList();
     }
@@ -214,7 +206,6 @@ TodoApp.prototype.renderTodo = function(todo, index) {
             (todo.checked ? ' checked' : '') + '>' + todo.text +
             '<button class="remover" data-index="'+ index + '">x</button></label></li>';
     }
-*/
 
 
 
